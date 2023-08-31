@@ -31,9 +31,9 @@
       <div class="col-md-12">
         <div class="button-container">
           <div class="button-column">
-            <a href="jbs_login.jsp" class="btn btn-primary button">JobSeeker</a>
-            <a href="con_login.jsp" class="btn btn-secondary button">Consultant</a>
-            <a href="admin.jsp" class="btn btn-success button">Admin</a>
+            <a href="./Authorization/jbs_login.jsp" class="btn btn-primary button">JobSeeker</a>
+            <a href="./Authorization/con_login.jsp" class="btn btn-secondary button">Consultant</a>
+            <a href="./Authorization/admin.jsp" class="btn btn-success button">Admin</a>
           </div>
         </div>
       </div>
