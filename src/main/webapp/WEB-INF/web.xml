@@ -22,9 +22,15 @@
   	<description></description>
   	<servlet-class>com.thejobs.controller.ConsultantController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>JobseekerController</servlet-name>
+  	<display-name>JobseekerController</display-name>
+  	<description></description>
+  	<servlet-class>com.thejobs.controller.JobseekerController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>AppointmentController</servlet-name>
-  	<url-pattern>/appointmentcontroller</url-pattern>
+  	<url-pattern>/appointmentmanager</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>AppointmentController</servlet-name>
@@ -32,11 +38,11 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>AvailabilityController</servlet-name>
-  	<url-pattern>/availabilitycontroller</url-pattern>
+  	<url-pattern>/availabilitymanager</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>AvailabilityController</servlet-name>
-  	<url-pattern>/getavailabilitycontroller</url-pattern>
+  	<url-pattern>/getavailabilitymanager</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>ConsultantController</servlet-name>
@@ -44,6 +50,14 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>ConsultantController</servlet-name>
-  	<url-pattern>/getconsultant</url-pattern>
+  	<url-pattern>/getconsultantmanager</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>JobseekerController</servlet-name>
+  	<url-pattern>/jobseekercontroller</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>JobseekerController</servlet-name>
+  	<url-pattern>/getjobseekermanager</url-pattern>
   </servlet-mapping>
 </web-app>

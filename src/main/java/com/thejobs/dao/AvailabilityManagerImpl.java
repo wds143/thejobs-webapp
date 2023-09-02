@@ -3,6 +3,7 @@ package com.thejobs.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.thejobs.dao.dbutils.DbDriverManager;
 import com.thejobs.dao.dbutils.DbDriverManagerFactory;
@@ -39,6 +40,30 @@ public class AvailabilityManagerImpl implements AvailabilityManager {
 	    connection.close();
 
 	    return result;
-    };
+    }
+
+	@Override
+	public boolean editAvailability(Availability availability) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Availability fetchSingleAvailability() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deleteAvailability(int avbId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Availability> fetchAllAvailability() {
+		// TODO Auto-generated method stub
+		return null;
+	};
 
 }

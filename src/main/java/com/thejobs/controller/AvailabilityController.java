@@ -30,9 +30,37 @@ public class AvailabilityController extends HttpServlet {
     String actiontype = request.getParameter("actiontype");
 
     if (actiontype.equals("fetchSingle")) {
-      fetchSingleAvailability(request, response);
+      try {
+		fetchSingleAvailability(request, response);
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (ServletException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     } else {
-      fetchAllAvailability(request, response);
+      try {
+		fetchAllAvailability(request, response);
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (ServletException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     }
   }
 
@@ -43,9 +71,37 @@ public class AvailabilityController extends HttpServlet {
     if (actionType.equals("add")) {
       addAvailability(request, response);
     } else if (actionType.equals("edit")) {
-      editAvailability(request, response);
+      try {
+		editAvailability(request, response);
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (ServletException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     } else if (actionType.equals("delete")) {
-      deleteAvailability(request, response);
+      try {
+		deleteAvailability(request, response);
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (ServletException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     }
   }
 
@@ -54,28 +110,22 @@ public class AvailabilityController extends HttpServlet {
 
     clearMessage();
 
-    int apnmId = 0;
 	int conId = 0;
 	int avbId = 0;
-	int jbsId = 0;
-	String apnmDesc = null;
-	String apnmCountry = null;
-	String apnmJob = null;
-	Availability availability = new Availability(apnmId, conId, avbId, jbsId, apnmDesc, apnmCountry, apnmJob);
+	String avbDate = null;
+	String avbTime = null;
+	Availability availability = new Availability( conId, avbId, avbDate, avbTime);
 
-    availability.setApnmId(Integer.parseInt(request.getParameter("apnm_id")));
     availability.setConId(Integer.parseInt(request.getParameter("con_id")));
     availability.setAvbId(Integer.parseInt(request.getParameter("avb_id")));
-    availability.setJbsId(Integer.parseInt(request.getParameter("jbs_id")));
-    availability.setApnmDesc(request.getParameter("apnm_decs"));
-    availability.setApnmCountry(request.getParameter("apnm_country"));
-    availability.setApnmJob(request.getParameter("apnm_jobs"));
+    availability.setAvbDate(request.getParameter("avb_date"));
+    availability.setAvbTime(request.getParameter("avb_time"));
 
     try {
       if (getAvailabilityService().addAvailability(availability)) {
         message = "The availability was successfully added!";
       } else {
-        message = "Failed to add appoinment!" + availability.getApnmId();
+        message = "Failed to add Availability!" + availability.getAvbId();
       }
     } catch (ClassNotFoundException | SQLException e) {
       message = e.getMessage();
@@ -88,37 +138,27 @@ public class AvailabilityController extends HttpServlet {
   }
 
   private void editAvailability(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+      throws ServletException, IOException, ClassNotFoundException, SQLException {
 
     clearMessage();
 
-    int apnmId = 0;
 	int conId = 0;
 	int avbId = 0;
-	int jbsId = 0;
-	String apnmDesc = null;
-	String apnmCountry = null;
-	String apnmJob = null;
-	Availability availability = new Availability(apnmId, conId, avbId, jbsId, apnmDesc, apnmCountry, apnmJob);
+	String avbDate = null;
+	String avbTime = null;
+	Availability availability = new Availability( conId, avbId, avbDate, avbTime);
 
-    availability.setApnmId(Integer.parseInt(request.getParameter("apnm_id")));
     availability.setConId(Integer.parseInt(request.getParameter("con_id")));
     availability.setAvbId(Integer.parseInt(request.getParameter("avb_id")));
-    availability.setJbsId(Integer.parseInt(request.getParameter("jbs_id")));
-    availability.setApnmDesc(request.getParameter("apnm_decs"));
-    availability.setApnmCountry(request.getParameter("apnm_country"));
-    availability.setApnmJob(request.getParameter("apnm_jobs"));
+    availability.setAvbDate(request.getParameter("avb_date"));
+    availability.setAvbTime(request.getParameter("avb_time"));
 
 
-    try {
-      if (getAvailabilityService().editAvailability(availability)) {
-        message = "Availability #: <code>" + availability.getApnmId() + "</code> was successfully updated!";
+    if (getAvailabilityService().editAvailability(availability)) {
+        message = "Availability #: <code>" + availability.getAvbId() + "</code> was successfully updated!";
       } else {
         message = "Failed to update Availability!";
       }
-    } catch (ClassNotFoundException | SQLException e) {
-      message = e.getMessage();
-    }
 
     request.setAttribute("updateMessage", message);
 
@@ -128,21 +168,17 @@ public class AvailabilityController extends HttpServlet {
   }
 
   private void deleteAvailability(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+      throws ServletException, IOException, SQLException, ClassNotFoundException {
 
     clearMessage();
 
     int apnmId = Integer.parseInt(request.getParameter("apnm_id"));
 
-    try {
-      if (getAvailabilityService().deleteAvailability(apnmId)) {
+    if (getAvailabilityService().deleteAvailability(apnmId)) {
         message = "Availability #: <code>" + apnmId + "</code> was successfully removed!";
       } else {
         message = "Failed to delete product!" + apnmId;
       }
-    } catch (ClassNotFoundException | SQLException e) {
-      message = e.getMessage();
-    }
 
     HttpSession session = request.getSession();
     session.setAttribute("deleteMessage", message);
@@ -151,22 +187,18 @@ public class AvailabilityController extends HttpServlet {
   }
 
   private void fetchSingleAvailability(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+      throws ServletException, IOException, ClassNotFoundException, SQLException {
 
     clearMessage();
 
     int apnmId = Integer.parseInt(request.getParameter("apnm_id"));
 
-    try {
-      Availability availability = getAvailabilityService().fetchSingleAvailability(apnmId);
-      if (availability.getApnmId() > 0) {
+    Availability availability = getAvailabilityService().fetchSingleAvailability(apnmId);
+      if (availability.getAvbId() > 0) {
         request.setAttribute("availability", availability);
       } else {
         message = "No such record found!";
       }
-    } catch (ClassNotFoundException | SQLException e) {
-      message = e.getMessage();
-    }
 
     request.setAttribute("feedbackMessage", message);
 
@@ -175,21 +207,17 @@ public class AvailabilityController extends HttpServlet {
   }
 
   private void fetchAllAvailability(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+      throws ServletException, IOException, ClassNotFoundException, SQLException {
 
     clearMessage();
 
     List<Availability> availabilityList = new ArrayList<Availability>();
 
-    try {
-      availabilityList = getAvailabilityService().fetchAllAvailability();
+    availabilityList = getAvailabilityService().fetchAllAvailability();
 
       if (!(availabilityList.size() > 0)) {
         message = "No record(s) found!";
       }
-    } catch (ClassNotFoundException | SQLException e) {
-      message = e.getMessage();
-    }
 
     request.setAttribute("availabilityList", availabilityList);
     request.setAttribute("feedbackMessage", message);
