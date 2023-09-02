@@ -11,4 +11,6 @@ public interface ConsultantManager {
 	public boolean deleteConsultant(int conId) throws ClassNotFoundException, SQLException;
 	public Consultant getConsultant(int conId) throws ClassNotFoundException, SQLException;
 	List<Consultant> getAllConsultants() throws ClassNotFoundException, SQLException;
+	public boolean fetchSingleConsultant(int conId);
+	public List<Consultant> fetchAllConsultant();
 }

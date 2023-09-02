@@ -6,19 +6,15 @@ public class Appointment {
     private int jbsId;
     private int avbId;
     private String apnmDesc;
-    private String apnmDate;
-    private String apnmTime;
     private String apnmCountry;
     private String apnmJob;
 
-    public Appointment(int apnmId, int conId, int jbsId, int avbId, String apnmDesc, String apnmDate, String apnmTime, String apnmCountry, String apnmJob) {
+    public Appointment(int apnmId, int conId, int jbsId, int avbId, String apnmDesc, String apnmCountry, String apnmJob) {
         this.apnmId = apnmId;
         this.conId = conId;
         this.jbsId = jbsId;
         this.avbId = avbId;
         this.apnmDesc = apnmDesc;
-        this.apnmDate = apnmDate;
-        this.apnmTime = apnmTime;
         this.apnmCountry = apnmCountry;
         this.apnmJob = apnmJob;
     }
@@ -61,22 +57,6 @@ public class Appointment {
 
     public void setApnmDesc(String apnmDesc) {
         this.apnmDesc = apnmDesc;
-    }
-
-    public String getApnmDate() {
-        return apnmDate;
-    }
-
-    public void setApnmDate(String apnmDate) {
-        this.apnmDate = apnmDate;
-    }
-
-    public String getApnmTime() {
-        return apnmTime;
-    }
-
-    public void setApnmTime(String apnmTime) {
-        this.apnmTime = apnmTime;
     }
 
     public String getApnmCountry() {

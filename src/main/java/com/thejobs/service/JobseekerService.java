@@ -1,6 +1,7 @@
 package com.thejobs.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.thejobs.dao.JobseekerManager;
 import com.thejobs.dao.JobseekerManagerImpl;
@@ -36,4 +37,14 @@ public class JobseekerService {
   public boolean deleteJobseeker(int jbsId) throws SQLException, ClassNotFoundException {
     return getJobseekerManager().deleteJobseeker(jbsId);
   }
+
+  public Jobseeker fetchSingleJobseeker(int jbsId) {
+		return getJobseekerManager().getSingleJobseeker();
+  }
+  
+  public List<Jobseeker> fetchAllJobseeker() throws ClassNotFoundException, SQLException {
+		return getJobseekerManager().getAllJobseeker();
+  }
+
+
 }

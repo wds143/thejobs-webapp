@@ -1,6 +1,7 @@
 package com.thejobs.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.thejobs.dao.ConsultantManagerImpl;
 import com.thejobs.dao.ConsultantManager;
@@ -34,5 +35,13 @@ public class ConsultantService {
     public boolean deleteConsultant(int conId) throws SQLException, ClassNotFoundException {
         return getConsultantManager().deleteConsultant(conId);
     }
+
+	public boolean fetchSingleConsultant(int conId) {
+		return getConsultantManager().fetchSingleConsultant(conId);
+	}
+
+	public List<Consultant> fetchAllConsultants() {
+		return getConsultantManager().fetchAllConsultant();
+	}
 }
 

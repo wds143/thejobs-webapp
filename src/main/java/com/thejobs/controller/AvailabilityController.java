@@ -12,27 +12,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.thejobs.model.Appointment;
-import com.thejobs.service.AppointmentService;
+import com.thejobs.model.Availability;
+import com.thejobs.service.AvailabilityService;
 
 
-public class AppointmentController extends HttpServlet {
+public class AvailabilityController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   String message = "";
 
-  private AppointmentService getAppointmentService() {
-    return AppointmentService.getAppointmentService();
+  private AvailabilityService getAvailabilityService() {
+    return AvailabilityService.getAvailabilityService();
   }
-
+  
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String actiontype = request.getParameter("actiontype");
 
     if (actiontype.equals("fetchSingle")) {
-      fetchSingleAppointment(request, response);
+      fetchSingleAvailability(request, response);
     } else {
-      fetchAllAppointment(request, response);
+      fetchAllAvailability(request, response);
     }
   }
 
@@ -41,15 +41,15 @@ public class AppointmentController extends HttpServlet {
     String actionType = request.getParameter("actiontype");
 
     if (actionType.equals("add")) {
-      addAppointment(request, response);
+      addAvailability(request, response);
     } else if (actionType.equals("edit")) {
-      editAppointment(request, response);
+      editAvailability(request, response);
     } else if (actionType.equals("delete")) {
-      deleteAppointment(request, response);
+      deleteAvailability(request, response);
     }
   }
 
-  private void addAppointment(HttpServletRequest request, HttpServletResponse response)
+  private void addAvailability(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     clearMessage();
@@ -61,21 +61,21 @@ public class AppointmentController extends HttpServlet {
 	String apnmDesc = null;
 	String apnmCountry = null;
 	String apnmJob = null;
-	Appointment appointment = new Appointment(apnmId, conId, avbId, jbsId, apnmDesc, apnmCountry, apnmJob);
+	Availability availability = new Availability(apnmId, conId, avbId, jbsId, apnmDesc, apnmCountry, apnmJob);
 
-    appointment.setApnmId(Integer.parseInt(request.getParameter("apnm_id")));
-    appointment.setConId(Integer.parseInt(request.getParameter("con_id")));
-    appointment.setAvbId(Integer.parseInt(request.getParameter("avb_id")));
-    appointment.setJbsId(Integer.parseInt(request.getParameter("jbs_id")));
-    appointment.setApnmDesc(request.getParameter("apnm_decs"));
-    appointment.setApnmCountry(request.getParameter("apnm_country"));
-    appointment.setApnmJob(request.getParameter("apnm_jobs"));
+    availability.setApnmId(Integer.parseInt(request.getParameter("apnm_id")));
+    availability.setConId(Integer.parseInt(request.getParameter("con_id")));
+    availability.setAvbId(Integer.parseInt(request.getParameter("avb_id")));
+    availability.setJbsId(Integer.parseInt(request.getParameter("jbs_id")));
+    availability.setApnmDesc(request.getParameter("apnm_decs"));
+    availability.setApnmCountry(request.getParameter("apnm_country"));
+    availability.setApnmJob(request.getParameter("apnm_jobs"));
 
     try {
-      if (getAppointmentService().addAppointment(appointment)) {
-        message = "The appointment was successfully added!";
+      if (getAvailabilityService().addAvailability(availability)) {
+        message = "The availability was successfully added!";
       } else {
-        message = "Failed to add appoinment!" + appointment.getApnmId();
+        message = "Failed to add appoinment!" + availability.getApnmId();
       }
     } catch (ClassNotFoundException | SQLException e) {
       message = e.getMessage();
@@ -87,7 +87,7 @@ public class AppointmentController extends HttpServlet {
     rd.forward(request, response);
   }
 
-  private void editAppointment(HttpServletRequest request, HttpServletResponse response)
+  private void editAvailability(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     clearMessage();
@@ -99,22 +99,22 @@ public class AppointmentController extends HttpServlet {
 	String apnmDesc = null;
 	String apnmCountry = null;
 	String apnmJob = null;
-	Appointment appointment = new Appointment(apnmId, conId, avbId, jbsId, apnmDesc, apnmCountry, apnmJob);
+	Availability availability = new Availability(apnmId, conId, avbId, jbsId, apnmDesc, apnmCountry, apnmJob);
 
-    appointment.setApnmId(Integer.parseInt(request.getParameter("apnm_id")));
-    appointment.setConId(Integer.parseInt(request.getParameter("con_id")));
-    appointment.setAvbId(Integer.parseInt(request.getParameter("avb_id")));
-    appointment.setJbsId(Integer.parseInt(request.getParameter("jbs_id")));
-    appointment.setApnmDesc(request.getParameter("apnm_decs"));
-    appointment.setApnmCountry(request.getParameter("apnm_country"));
-    appointment.setApnmJob(request.getParameter("apnm_jobs"));
+    availability.setApnmId(Integer.parseInt(request.getParameter("apnm_id")));
+    availability.setConId(Integer.parseInt(request.getParameter("con_id")));
+    availability.setAvbId(Integer.parseInt(request.getParameter("avb_id")));
+    availability.setJbsId(Integer.parseInt(request.getParameter("jbs_id")));
+    availability.setApnmDesc(request.getParameter("apnm_decs"));
+    availability.setApnmCountry(request.getParameter("apnm_country"));
+    availability.setApnmJob(request.getParameter("apnm_jobs"));
 
 
     try {
-      if (getAppointmentService().editAppointment(appointment)) {
-        message = "Appointment #: <code>" + appointment.getApnmId() + "</code> was successfully updated!";
+      if (getAvailabilityService().editAvailability(availability)) {
+        message = "Availability #: <code>" + availability.getApnmId() + "</code> was successfully updated!";
       } else {
-        message = "Failed to update Appointment!";
+        message = "Failed to update Availability!";
       }
     } catch (ClassNotFoundException | SQLException e) {
       message = e.getMessage();
@@ -127,7 +127,7 @@ public class AppointmentController extends HttpServlet {
 
   }
 
-  private void deleteAppointment(HttpServletRequest request, HttpServletResponse response)
+  private void deleteAvailability(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     clearMessage();
@@ -135,8 +135,8 @@ public class AppointmentController extends HttpServlet {
     int apnmId = Integer.parseInt(request.getParameter("apnm_id"));
 
     try {
-      if (getAppointmentService().deleteAppointment(apnmId)) {
-        message = "Appointment #: <code>" + apnmId + "</code> was successfully removed!";
+      if (getAvailabilityService().deleteAvailability(apnmId)) {
+        message = "Availability #: <code>" + apnmId + "</code> was successfully removed!";
       } else {
         message = "Failed to delete product!" + apnmId;
       }
@@ -147,10 +147,10 @@ public class AppointmentController extends HttpServlet {
     HttpSession session = request.getSession();
     session.setAttribute("deleteMessage", message);
 
-    response.sendRedirect("getappointment?actiontype=fetchAll");
+    response.sendRedirect("getavailability?actiontype=fetchAll");
   }
 
-  private void fetchSingleAppointment(HttpServletRequest request, HttpServletResponse response)
+  private void fetchSingleAvailability(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     clearMessage();
@@ -158,9 +158,9 @@ public class AppointmentController extends HttpServlet {
     int apnmId = Integer.parseInt(request.getParameter("apnm_id"));
 
     try {
-      Appointment appointment = getAppointmentService().fetchSingleAppointment(apnmId);
-      if (appointment.getApnmId() > 0) {
-        request.setAttribute("appointment", appointment);
+      Availability availability = getAvailabilityService().fetchSingleAvailability(apnmId);
+      if (availability.getApnmId() > 0) {
+        request.setAttribute("availability", availability);
       } else {
         message = "No such record found!";
       }
@@ -174,24 +174,24 @@ public class AppointmentController extends HttpServlet {
     rd.forward(request, response);
   }
 
-  private void fetchAllAppointment(HttpServletRequest request, HttpServletResponse response)
+  private void fetchAllAvailability(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     clearMessage();
 
-    List<Appointment> appointmentList = new ArrayList<Appointment>();
+    List<Availability> availabilityList = new ArrayList<Availability>();
 
     try {
-      appointmentList = getAppointmentService().fetchAllAppointment();
+      availabilityList = getAvailabilityService().fetchAllAvailability();
 
-      if (!(appointmentList.size() > 0)) {
+      if (!(availabilityList.size() > 0)) {
         message = "No record(s) found!";
       }
     } catch (ClassNotFoundException | SQLException e) {
       message = e.getMessage();
     }
 
-    request.setAttribute("appointmentList", appointmentList);
+    request.setAttribute("availabilityList", availabilityList);
     request.setAttribute("feedbackMessage", message);
 
     RequestDispatcher rd = request.getRequestDispatcher("view-all-and-delete-each.jsp");

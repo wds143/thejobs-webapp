@@ -160,4 +160,16 @@ public class ConsultantManagerImpl implements ConsultantManager {
 
 	    return consultantList;
 	}
+
+	@Override
+	public boolean fetchSingleConsultant(int conId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Consultant> fetchAllConsultant() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

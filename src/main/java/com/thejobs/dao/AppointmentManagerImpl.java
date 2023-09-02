@@ -113,12 +113,10 @@ public class AppointmentManagerImpl implements AppointmentManager {
 	        int jbsId = rs.getInt("jbs_id");
 	        int avbId = rs.getInt("avb_id");
 	        String apnmDesc = rs.getString("apmn_desc");
-	        String apnmDate = rs.getString("apnm_date");
-	        String apnmTime = rs.getString("apnm_time");
 	        String apnmCountry = rs.getString("apnm_country");
 	        String apnmJob = rs.getString("apnm_job");
 
-	        appointment = new Appointment(apnmId, conId, jbsId, avbId, apnmDesc, apnmDate, apnmTime, apnmCountry, apnmJob);
+	        appointment = new Appointment(apnmId, conId, jbsId, avbId, apnmDesc, apnmCountry, apnmJob);
 	    }
 
 	    rs.close();
@@ -148,12 +146,10 @@ public class AppointmentManagerImpl implements AppointmentManager {
 	        int jbsId = rs.getInt("jbs_id");
 	        int avbId = rs.getInt("avb_id");
 	        String apnmDesc = rs.getString("apmn_desc");
-	        String apnmDate = rs.getString("apnm_date");
-	        String apnmTime = rs.getString("apnm_time");
 	        String apnmCountry = rs.getString("apnm_country");
 	        String apnmJob = rs.getString("apnm_job");
 
-	        appointment = new Appointment(apnmId, conId, jbsId, avbId, apnmDesc, apnmDate, apnmTime, apnmCountry, apnmJob);
+	        appointment = new Appointment(apnmId, conId, jbsId, avbId, apnmDesc, apnmCountry, apnmJob);
 	        appointmentList.add(appointment);
 	    }
 
@@ -161,6 +157,18 @@ public class AppointmentManagerImpl implements AppointmentManager {
 	    connection.close();
 
 	    return appointmentList;
+	}
+
+	@Override
+	public List<Appointment> fetchAllAppoinment() throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Appointment fetchSingleAppointment(int apnmId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
