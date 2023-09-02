@@ -11,5 +11,4 @@ public interface JobseekerManager {
 	public boolean deleteJobseeker(int jbsId) throws ClassNotFoundException, SQLException;
 	public Jobseeker getJobseeker(int jbsId) throws ClassNotFoundException, SQLException;
 	public List<Jobseeker> getAllJobseeker() throws ClassNotFoundException, SQLException;
-	public Jobseeker getSingleJobseeker();
 }

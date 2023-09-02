@@ -38,8 +38,8 @@ public class JobseekerService {
     return getJobseekerManager().deleteJobseeker(jbsId);
   }
 
-  public Jobseeker fetchSingleJobseeker(int jbsId) {
-		return getJobseekerManager().getSingleJobseeker();
+  public Jobseeker fetchSingleJobseeker(int jbsId) throws ClassNotFoundException, SQLException {
+		return getJobseekerManager().getJobseeker(jbsId);
   }
   
   public List<Jobseeker> fetchAllJobseeker() throws ClassNotFoundException, SQLException {

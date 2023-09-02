@@ -157,10 +157,4 @@ public class JobseekerManagerImpl implements JobseekerManager {
 		return jobseekerList;
 	}
 
-	@Override
-	public Jobseeker getSingleJobseeker() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -61,7 +61,9 @@ public class AppointmentController extends HttpServlet {
 	String apnmDesc = null;
 	String apnmCountry = null;
 	String apnmJob = null;
-	Appointment appointment = new Appointment(apnmId, conId, avbId, jbsId, apnmDesc, apnmCountry, apnmJob);
+	String avbDate = null;
+	String avbTime = null;
+	Appointment appointment = new Appointment(apnmId, conId, avbId, jbsId, apnmDesc, apnmCountry, apnmJob, avbDate, avbTime);
 
     appointment.setApnmId(Integer.parseInt(request.getParameter("apnm_id")));
     appointment.setConId(Integer.parseInt(request.getParameter("con_id")));
@@ -70,6 +72,8 @@ public class AppointmentController extends HttpServlet {
     appointment.setApnmDesc(request.getParameter("apnm_decs"));
     appointment.setApnmCountry(request.getParameter("apnm_country"));
     appointment.setApnmJob(request.getParameter("apnm_jobs"));
+    appointment.setAvbDate(request.getParameter("avb_date"));
+    appointment.setAvbTime(request.getParameter("avb_time"));
 
     try {
       if (getAppointmentService().addAppointment(appointment)) {
@@ -83,7 +87,7 @@ public class AppointmentController extends HttpServlet {
 
     request.setAttribute("feedbackMessage", message);
 
-    RequestDispatcher rd = request.getRequestDispatcher("add-product.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("create_avb.jsp");
     rd.forward(request, response);
   }
 
@@ -99,7 +103,9 @@ public class AppointmentController extends HttpServlet {
 	String apnmDesc = null;
 	String apnmCountry = null;
 	String apnmJob = null;
-	Appointment appointment = new Appointment(apnmId, conId, avbId, jbsId, apnmDesc, apnmCountry, apnmJob);
+	String avbDate = null;
+	String avbTime = null;
+	Appointment appointment = new Appointment(apnmId, conId, avbId, jbsId, apnmDesc, apnmCountry, apnmJob, avbDate, avbTime);
 
     appointment.setApnmId(Integer.parseInt(request.getParameter("apnm_id")));
     appointment.setConId(Integer.parseInt(request.getParameter("con_id")));
@@ -108,6 +114,8 @@ public class AppointmentController extends HttpServlet {
     appointment.setApnmDesc(request.getParameter("apnm_decs"));
     appointment.setApnmCountry(request.getParameter("apnm_country"));
     appointment.setApnmJob(request.getParameter("apnm_jobs"));
+    appointment.setAvbDate(request.getParameter("avb_date"));
+    appointment.setAvbTime(request.getParameter("avb_time"));
 
 
     try {
@@ -182,13 +190,10 @@ public class AppointmentController extends HttpServlet {
     List<Appointment> appointmentList = new ArrayList<Appointment>();
 
     try {
-      appointmentList = getAppointmentService().fetchAllAppointment();
-
-      if (!(appointmentList.size() > 0)) {
-        message = "No record(s) found!";
-      }
+        appointmentList = getAppointmentService().fetchAllAppointment();
+        request.setAttribute("appointmentList", appointmentList);
     } catch (ClassNotFoundException | SQLException e) {
-      message = e.getMessage();
+        message = e.getMessage();
     }
 
     request.setAttribute("appointmentList", appointmentList);
