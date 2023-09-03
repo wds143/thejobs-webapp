@@ -27,6 +27,7 @@ public class JobseekerService {
   }
 
   public boolean addJobseeker(Jobseeker jobseeker) throws SQLException, ClassNotFoundException {
+	System.out.println("ServiceIN");
     return getJobseekerManager().addJobseeker(jobseeker);
   }
 

@@ -24,25 +24,28 @@ public class JobseekerManagerImpl implements JobseekerManager {
 
 	@Override
 	public boolean addJobseeker(Jobseeker jobseeker) throws ClassNotFoundException, SQLException {
+		System.out.println("Con");
 		Connection connection = getConnection();
-
-		String query = "INSERT INTO jobseeker (jbs_id, jbs_FirstName, jbs_LastName, jbs_Username, jbs_Email, jbs_Password) VALUES (?,?,?,?,?,?)";
-		
+		System.out.println("ConOut");
+		String query = "INSERT INTO jobseeker (jbs_first_name, jbs_last_name, jbs_username, jbs_email, jbs_password) VALUES (?,?,?,?,?)";
+		System.out.println("addDatabase");
 		PreparedStatement ps = connection.prepareStatement(query);
-		ps.setInt(2, jobseeker.getJbsId());
-		ps.setString(4, jobseeker.getJbsFirstName());
-		ps.setString(5, jobseeker.getJbsLastName());
-		ps.setString(6, jobseeker.getJbsUsername());
-		ps.setString(7, jobseeker.getJbsEmail());
-		ps.setString(7, jobseeker.getJbsPassword());
+		ps.setString(1, jobseeker.getJbsFirstName());
+		ps.setString(2, jobseeker.getJbsLastName());
+		ps.setString(3, jobseeker.getJbsUsername());
+		ps.setString(4, jobseeker.getJbsEmail());
+		ps.setString(5, jobseeker.getJbsPassword());
+		System.out.println("String");
 
 		boolean result = false;
 
 		if (ps.executeUpdate() > 0) {
+			System.out.println("Execute");
 			result = true;
 		}
 
 		ps.close();
+		System.out.println("Lost");
 		connection.close();
 
 		return result;

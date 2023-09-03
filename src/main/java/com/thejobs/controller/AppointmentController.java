@@ -28,7 +28,7 @@ public class AppointmentController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String actiontype = request.getParameter("actiontype");
-
+    System.out.println("GET request received in servlet");
     if (actiontype.equals("fetchSingle")) {
       fetchSingleAppointment(request, response);
     } else {
@@ -39,7 +39,7 @@ public class AppointmentController extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String actionType = request.getParameter("actiontype");
-
+    System.out.println("POST request received in servlet");
     if (actionType.equals("add")) {
       addAppointment(request, response);
     } else if (actionType.equals("edit")) {
@@ -130,7 +130,7 @@ public class AppointmentController extends HttpServlet {
 
     request.setAttribute("updateMessage", message);
 
-    RequestDispatcher rd = request.getRequestDispatcher("search-and-update.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("appointment.jsp");
     rd.forward(request, response);
 
   }
@@ -178,30 +178,35 @@ public class AppointmentController extends HttpServlet {
 
     request.setAttribute("feedbackMessage", message);
 
-    RequestDispatcher rd = request.getRequestDispatcher("search-and-update.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("appointment.jsp");
     rd.forward(request, response);
   }
 
   private void fetchAllAppointment(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+	      throws ServletException, IOException {
 
-    clearMessage();
+	    clearMessage();
 
-    List<Appointment> appointmentList = new ArrayList<Appointment>();
+	    List<Appointment> appointmentList = new ArrayList<Appointment>();
 
-    try {
-        appointmentList = getAppointmentService().fetchAllAppointment();
-        request.setAttribute("appointmentList", appointmentList);
-    } catch (ClassNotFoundException | SQLException e) {
-        message = e.getMessage();
-    }
+	    try {
+	      appointmentList = getAppointmentService().fetchAllAppointment();
+	      System.out.println("Appointment2");
 
-    request.setAttribute("appointmentList", appointmentList);
-    request.setAttribute("feedbackMessage", message);
+	      if (!(appointmentList.size() > 0)) {
+	        message = "No record(s) found!";
+	      }
+	    } catch (ClassNotFoundException | SQLException e) {
+	      message = e.getMessage();
+	    }
 
-    RequestDispatcher rd = request.getRequestDispatcher("view-all-and-delete-each.jsp");
-    rd.forward(request, response);
-  }
+	    request.setAttribute("appointmentList", appointmentList);
+	    request.setAttribute("feedbackMessage", message);
+
+	    RequestDispatcher rd = request.getRequestDispatcher("appointment.jsp");
+	    rd.forward(request, response);
+	  }
+  
 
   // UTILITY
   public void clearMessage() {

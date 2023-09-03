@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class AppointmentManagerImpl implements AppointmentManager {
 	public boolean editAppointment(Appointment appointment) throws SQLException, ClassNotFoundException {
 		   Connection connection = getConnection();
 
-		    String query = "UPDATE product SET con_id=?, jbs_id=?, avb_id=?, apnm_decs=?, apnm_country=?, apnm_job=? avb_date=? avb_time=?  WHERE apnm_id=?";
+		    String query = "UPDATE appointment SET con_id=?, jbs_id=?, avb_id=?, apnm_decs=?, apnm_country=?, apnm_job=? avb_date=? avb_time=?  WHERE apnm_id=?";
 
 		    PreparedStatement ps = connection.prepareStatement(query);
 		    ps.setInt(1, appointment.getConId());
@@ -80,7 +81,7 @@ public class AppointmentManagerImpl implements AppointmentManager {
 	public boolean deleteAppointment(int apnmId) throws SQLException, ClassNotFoundException {
 		   Connection connection = getConnection();
 
-		    String query = "DELETE FROM product WHERE apnmtId=?";
+		    String query = "DELETE FROM appointment WHERE apnmtId=?";
 
 		    PreparedStatement ps = connection.prepareStatement(query);
 		    ps.setInt(1, apnmId);
@@ -101,7 +102,7 @@ public class AppointmentManagerImpl implements AppointmentManager {
 	public Appointment getAppointment(int apnmId) throws SQLException, ClassNotFoundException {
 	    Connection connection = getConnection();
 
-	    String query = "SELECT * FROM product WHERE apnmId=?";
+	    String query = "SELECT * FROM appointment WHERE apnmId=?";
 
 	    PreparedStatement ps = connection.prepareStatement(query);
 	    ps.setInt(1, apnmId);
@@ -129,79 +130,42 @@ public class AppointmentManagerImpl implements AppointmentManager {
 	    return appointment;
 	}
 
+	  @Override
+	  public List<Appointment> fetchAllAppointment() throws SQLException, ClassNotFoundException {
+		    Connection connection = getConnection();
 
-//	@Override
-//	public List<Appointment> getAllAppointment() throws ClassNotFoundException, SQLException {
-//	    Connection connection = getConnection();
-//
-//	    String query = "SELECT * FROM appointment";
-//
-//	    Statement st = connection.createStatement();
-//
-//	    List<Appointment> appointmentList = new ArrayList<Appointment>();
-//
-//	    ResultSet rs = st.executeQuery(query);
-//
-//	    Appointment appointment = null;
-//	    while (rs.next()) {
-//	    	int apnmId = rs.getInt("apnm_id");
-//	        int conId = rs.getInt("con_id");
-//	        int jbsId = rs.getInt("jbs_id");
-//	        int avbId = rs.getInt("avb_id");
-//	        String apnmDesc = rs.getString("apmn_desc");
-//	        String apnmCountry = rs.getString("apnm_country");
-//	        String apnmJob = rs.getString("apnm_job");
-//
-//	        appointment = new Appointment(apnmId, conId, jbsId, avbId, apnmDesc, apnmCountry, apnmJob, avbDate, avbTime);
-//	        appointmentList.add(appointment);
-//	    }
-//
-//	    st.close();
-//	    connection.close();
-//
-//	    return appointmentList;
-//	}
-	
-	@Override
-	public List<Appointment> fetchAllAppoinment() throws ClassNotFoundException, SQLException {
-		    Connection connection = null;
-		    PreparedStatement preparedStatement = null;
-		    ResultSet resultSet = null;
-		    List<Appointment> appointmentList = new ArrayList<>();
+		    String query = "SELECT * FROM appointment";
 
-		    try {
-		        connection = getConnection();
+	        System.out.println("fetchALL");
+		    
+		    Statement st = connection.createStatement();
 
-		        String query = "SELECT a.*, av.avb_date_time " +
-		                       "FROM appointment a " +
-		                       "INNER JOIN availability av ON a.avb_id = av.avb_id";
+		    List<Appointment> appointmentList = new ArrayList<Appointment>();
 
-		        preparedStatement = connection.prepareStatement(query);
-		        resultSet = preparedStatement.executeQuery();
+		    ResultSet rs = st.executeQuery(query);
 
-		        while (resultSet.next()) {
-		            int apnmId = resultSet.getInt("apnm_id");
-		            int conId = resultSet.getInt("con_id");
-		            int avbId = resultSet.getInt("avb_id");
-		            int jbsId = resultSet.getInt("jbs_id");
-		            String apnmDesc = resultSet.getString("apnm_desc");
-		            String apnmCountry = resultSet.getString("apnm_country");
-		            String apnmJob = resultSet.getString("apnm_job");
-		            String avbDate = resultSet.getString("avb_date");
-		            String avbTime = resultSet.getString("avb_time");  // Get appointment date and time from availability table
-
-		            Appointment appointment = new Appointment( apnmId, conId, jbsId, avbId, apnmDesc, apnmCountry, apnmJob, avbDate, avbTime);
-		            appointment.setAvbDate(avbDate);
-		            appointment.setAvbTime(avbTime);
-		            
-		            appointmentList.add(appointment);
-		        }
-		    } finally {
-		        // Close resources (connection, preparedStatement, resultSet) in a try-finally block
+		    while (rs.next()) {
+		        Appointment appointment = new Appointment();
+		        appointment.setApnmId(rs.getInt("apnm_id"));
+		        appointment.setConId(rs.getInt("con_id"));
+		        appointment.setAvbId(rs.getInt("avb_id"));
+		        appointment.setJbsId(rs.getInt("jbs_id"));
+		        appointment.setApnmDesc(rs.getString("apnm_desc"));
+		        appointment.setApnmJob(rs.getString("apnm_job"));
+		        appointment.setApnmCountry(rs.getString("apnm_country"));
+		        appointment.setAvbDate(rs.getString("avb_date"));
+		        appointment.setAvbTime(rs.getString("avb_time"));
+		        System.out.println("fetchALL");
+		        appointmentList.add(appointment);
 		    }
 
+		    rs.close();
+		    st.close();
+		    connection.close();
+
 		    return appointmentList;
-	}
+		}
+
 
 	@Override
 	public Appointment fetchSingleAppointment(int apnmId) {

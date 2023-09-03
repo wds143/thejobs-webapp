@@ -43,6 +43,6 @@ public class AppointmentService {
   }
 
   public List<Appointment> fetchAllAppointment() throws SQLException, ClassNotFoundException {
-	    return getAppoinmentManager().fetchAllAppoinment();
+	    return getAppoinmentManager().fetchAllAppointment();
   }
 }

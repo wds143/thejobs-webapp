@@ -11,6 +11,6 @@ public interface AppointmentManager {
 	public boolean deleteAppointment(int apnmId) throws SQLException, ClassNotFoundException;
 	public Appointment getAppointment(int apnmId) throws SQLException, ClassNotFoundException;
 	public List<Appointment> getAllAppointment() throws ClassNotFoundException, SQLException;
-	public List<Appointment> fetchAllAppoinment() throws ClassNotFoundException, SQLException;
+	public List<Appointment> fetchAllAppointment() throws ClassNotFoundException, SQLException;
 	public Appointment fetchSingleAppointment(int apnmId);
 }

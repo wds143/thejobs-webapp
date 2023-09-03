@@ -8,6 +8,10 @@ public class Jobseeker {
 	private String jbsEmail;
 	private String jbsPassword;
 	
+	public Jobseeker() {
+		
+	}
+	
 	public Jobseeker(int jbsId, String jbsFirstName, String jbsLastName, String jbsUsername, String jbsEmail, String jbsPassword) {
 		this.jbsId = jbsId;
 		this.jbsFirstName = jbsFirstName;

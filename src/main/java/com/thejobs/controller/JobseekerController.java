@@ -29,34 +29,35 @@ public class JobseekerController extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String actiontype = request.getParameter("actiontype");
+	    String actiontype = request.getParameter("actiontype");
 
-    if (actiontype.equals("fetchSingle")) {
-      try {
-		fetchSingleJobseeker(request, response);
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (ServletException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-    } else {
-      fetchAllJobseeker(request, response);
-    }
-  }
+	    if (actiontype.equals("fetchSingle")) {
+	      try {
+			fetchSingleJobseeker(request, response);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    } else {
+	      fetchAllJobseeker(request, response);
+	    }
+	  }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String actionType = request.getParameter("actiontype");
 
     if (actionType.equals("add")) {
+    	System.out.println("path");
       addJobseeker(request, response);
     } else if (actionType.equals("edit")) {
       editJobseeker(request, response);
@@ -70,26 +71,19 @@ public class JobseekerController extends HttpServlet {
 
     clearMessage();
   
-	int jbsId = 0;
-	String JbsFirstName = null;
-	String JbsLastName = null;
-	String JbsUsername = null;
-	String JbsEmail = null;
-	String jbsPassword = null;
-
-	Jobseeker jobseeker = new Jobseeker(jbsId, JbsFirstName,  JbsLastName, JbsUsername, JbsEmail, jbsPassword);
-
-  jobseeker.setJbsId(Integer.parseInt(request.getParameter("jbs_id")));
-  jobseeker.setJbsFirstName(request.getParameter("jbs_FirstName"));
-  jobseeker.setJbsLastName(request.getParameter("jbs_LastName"));
-  jobseeker.setJbsEmail(request.getParameter("jbs_Email"));
-  jobseeker.setJbsPassword(request.getParameter("jbs_Password"));
+	Jobseeker jobseeker = new Jobseeker();
+	System.out.println("addProduct");
+  jobseeker.setJbsFirstName(request.getParameter("jbsFirstName"));
+  jobseeker.setJbsLastName(request.getParameter("jbsLastName"));
+  jobseeker.setJbsUsername(request.getParameter("jbsUsername"));
+  jobseeker.setJbsEmail(request.getParameter("jbsEmail"));
+  jobseeker.setJbsPassword(request.getParameter("jbsPassword"));
 
     try {
       if (getJobseekerService().addJobseeker(jobseeker)) {
         message = "The jobseeker was successfully added!";
       } else {
-        message = "Failed to add appoinment!" + jobseeker.getJbsId();
+        message = "Failed to add Jobseeker!" + jobseeker.getJbsId();
       }
     } catch (ClassNotFoundException | SQLException e) {
       message = e.getMessage();
@@ -97,7 +91,7 @@ public class JobseekerController extends HttpServlet {
 
     request.setAttribute("feedbackMessage", message);
 
-    RequestDispatcher rd = request.getRequestDispatcher("add-product.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
     rd.forward(request, response);
   }
 
@@ -201,7 +195,7 @@ public class JobseekerController extends HttpServlet {
     request.setAttribute("jobseekerList", jobseekerList);
     request.setAttribute("feedbackMessage", message);
 
-    RequestDispatcher rd = request.getRequestDispatcher("view-all-and-delete-each.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("jobseekerview.jsp");
     rd.forward(request, response);
   }
 

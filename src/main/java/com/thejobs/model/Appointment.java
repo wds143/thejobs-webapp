@@ -11,6 +11,9 @@ public class Appointment {
     private String avbDate;
     private String avbTime;
 
+    public Appointment() {
+    	
+    }
     public Appointment(int apnmId, int conId, int jbsId, int avbId, String apnmDesc, String apnmCountry, String apnmJob, String avbDate, String avbTime) {
         this.apnmId = apnmId;
         this.conId = conId;
