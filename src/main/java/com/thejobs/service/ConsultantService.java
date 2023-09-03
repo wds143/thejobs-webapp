@@ -36,11 +36,11 @@ public class ConsultantService {
         return getConsultantManager().deleteConsultant(conId);
     }
 
-	public boolean fetchSingleConsultant(int conId) {
+	public Consultant fetchSingleConsultant(int conId) throws ClassNotFoundException, SQLException {
 		return getConsultantManager().fetchSingleConsultant(conId);
 	}
 
-	public List<Consultant> fetchAllConsultants() {
+	public List<Consultant> fetchAllConsultants() throws ClassNotFoundException, SQLException {
 		return getConsultantManager().fetchAllConsultant();
 	}
 }

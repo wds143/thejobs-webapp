@@ -8,6 +8,10 @@ public class Consultant {
 	private String conEmail;
 	private String conPassword;
 	
+	public Consultant() {
+		
+	}
+	
 	public Consultant(int conId, String conFirstName, String conLastName, String conUsername, String conEmail, String conPassword) {
 		this.conId = conId;
 		this.conFirstName = conFirstName;

@@ -130,7 +130,7 @@ public class ConsultantManagerImpl implements ConsultantManager {
 
 
 	@Override
-	public List<Consultant> getAllConsultants() throws ClassNotFoundException, SQLException {
+	public List<Consultant> fetchAllConsultant() throws ClassNotFoundException, SQLException {
 	    Connection connection = getConnection();
 
 	    String query = "SELECT * FROM consulant";
@@ -162,14 +162,33 @@ public class ConsultantManagerImpl implements ConsultantManager {
 	}
 
 	@Override
-	public boolean fetchSingleConsultant(int conId) {
-		// TODO Auto-generated method stub
-		return false;
+	public Consultant fetchSingleConsultant(int consultantId) throws SQLException, ClassNotFoundException {
+	    Connection connection = getConnection(); // Assuming you have a method to get a database connection.
+
+	    String query = "SELECT * FROM consultant WHERE consultant_id=?";
+
+	    PreparedStatement ps = connection.prepareStatement(query);
+	    ps.setInt(1, consultantId);
+
+	    ResultSet rs = ps.executeQuery();
+
+	    Consultant consultant = null;
+	    while (rs.next()) {
+	        int consultant_id = rs.getInt("consultant_id");
+	        String consultant_FirstName = rs.getString("consultant_firstname");
+	        String consultant_LastName = rs.getString("consultant_lastname");
+	        String consultant_Username = rs.getString("consultant_username");
+	        String consultant_Email = rs.getString("consultant_email");
+	        String consultant_Password = rs.getString("consultant_password");
+
+	        consultant = new Consultant(consultant_id, consultant_FirstName, consultant_LastName, consultant_Username, consultant_Email, consultant_Password);
+	    }
+
+	    rs.close();
+	    ps.close();
+	    connection.close();
+
+	    return consultant;
 	}
 
-	@Override
-	public List<Consultant> fetchAllConsultant() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
