@@ -32,4 +32,3 @@ public class ConsultantAuthService {
         return authenticatedConsultant;
     }
 }
-

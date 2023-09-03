@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.thejobs.model.Appointment" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,7 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    	<p class="text-success">${feedbackMessage}</p>
+    <p class="text-success">${feedbackMessage}</p>
     <table class="table table-striped">
         <thead>
             <tr>

@@ -12,5 +12,5 @@ public interface AvailabilityManager {
 	boolean editAvailability(Availability availability);
 	Availability fetchSingleAvailability();
 	boolean deleteAvailability(int avbId);
-	List<Availability> fetchAllAvailability();
+	List<Availability> fetchAllAvailability() throws ClassNotFoundException, SQLException;
 }

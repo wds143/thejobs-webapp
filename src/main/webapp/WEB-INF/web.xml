@@ -40,6 +40,12 @@
   	<description></description>
   	<servlet-class>com.thejobs.controller.ConsultantAuthController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>JobseekerAuthController</servlet-name>
+  	<display-name>JobseekerAuthController</display-name>
+  	<description></description>
+  	<servlet-class>com.thejobs.controller.JobseekerAuthController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>AppointmentController</servlet-name>
   	<url-pattern>/appointmentmanager</url-pattern>
@@ -87,5 +93,13 @@
   <servlet-mapping>
   	<servlet-name>ConsultantAuthController</servlet-name>
   	<url-pattern>/getconsultantauth</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>JobseekerAuthController</servlet-name>
+  	<url-pattern>/jobseekerauthmanager</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>JobseekerAuthController</servlet-name>
+  	<url-pattern>/getjobseekerauth</url-pattern>
   </servlet-mapping>
 </web-app>

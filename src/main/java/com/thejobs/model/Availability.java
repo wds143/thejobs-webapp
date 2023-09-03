@@ -1,23 +1,28 @@
 package com.thejobs.model;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class Availability {
 	private int avbId;
 	private int conId;
-	private String avbDate;
-	private String avbTime;
+	private Date avbDate;
+	private Time avbTime;
 	private String avbCountry;
 	private String avbJob;
+	private boolean avbBooked;
 	
 	public Availability() {
 			
 	}
-	public Availability(int avbId, int conId, String avbDate, String avbTime, String avbCountry, String avbJob) {
+	public Availability(int avbId, int conId, Date avbDate, Time avbTime, String avbCountry, String avbJob, boolean avbBooked) {
 		this.avbId = avbId;
 		this.conId = conId;
 		this.avbDate = avbDate;
 		this.avbTime = avbTime;
 		this.avbCountry = avbCountry;
 		this.avbJob = avbJob;
+		this.avbBooked = avbBooked;
 	}
 	
 	public int getAvbId() {
@@ -32,17 +37,17 @@ public class Availability {
 	public void setConId(int conId) {
 		this.conId = conId;
 	}
-	public String getAvbDate() {
+	public Date getAvbDate() {
 		return avbDate;
 	}
-	public void setAvbDate(String avbDate) {
-		this.avbDate = avbDate;
+	public void setAvbDate(Date sqlDate) {
+		this.avbDate = sqlDate;
 	}
-	public String getAvbTime() {
+	public Time getAvbTime() {
 		return avbTime;
 	}
-	public void setAvbTime(String avbTime) {
-		this.avbTime = avbTime;
+	public void setAvbTime(Time sqlTime) {
+		this.avbTime = sqlTime;
 	}
 	public String getAvbCountry() {
 		return avbCountry;
@@ -55,5 +60,11 @@ public class Availability {
 	}
 	public void setAvbJob(String avbJob) {
 		this.avbJob = avbJob;
+	}
+	public boolean getAvbBooked() {
+		return avbBooked;
+	}
+	public void setAvbBooked(boolean avbBooked) {
+		this.avbBooked = avbBooked;
 	}
 }

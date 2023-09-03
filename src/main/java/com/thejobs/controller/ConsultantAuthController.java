@@ -16,13 +16,11 @@ public class ConsultantAuthController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private ConsultantAuthService getConsultantAuthService() {
-        System.out.println("POST request received in servlet");
         return ConsultantAuthService.getConsultantAuthService(); // Assuming you have a ConsultantService class
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("POST request received in servlet");
 
         // Check if the user is authenticated as a consultant (using a boolean flag)
         HttpSession session = request.getSession();

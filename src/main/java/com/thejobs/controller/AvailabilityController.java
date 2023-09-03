@@ -1,8 +1,11 @@
 package com.thejobs.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.thejobs.dao.AvailabilityManagerImpl;
 import com.thejobs.model.Availability;
 import com.thejobs.service.AvailabilityService;
 
@@ -29,7 +33,8 @@ public class AvailabilityController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String actiontype = request.getParameter("actiontype");
-
+    System.out.println("doGet");
+    System.out.println(actiontype);
     if (actiontype.equals("fetchSingle")) {
       try {
 		fetchSingleAvailability(request, response);
@@ -51,14 +56,18 @@ public class AvailabilityController extends HttpServlet {
 		fetchAllAvailability(request, response);
 	} catch (ClassNotFoundException e) {
 		// TODO Auto-generated catch block
+		System.out.println("ClassNotFoundException");
 		e.printStackTrace();
 	} catch (ServletException e) {
 		// TODO Auto-generated catch block
+		System.out.println("ServletException");
 		e.printStackTrace();
 	} catch (IOException e) {
+		System.out.println("IOException");
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	} catch (SQLException e) {
+		System.out.println("SQLException");
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
@@ -98,6 +107,9 @@ public class AvailabilityController extends HttpServlet {
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
     } else if (actionType.equals("delete")) {
       try {
@@ -115,7 +127,65 @@ public class AvailabilityController extends HttpServlet {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+    } else if (actionType.equals("fetchAllAvailability")) {
+    	try {
+			fetchAllAvailability(request, response);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    } else if (actionType.equals("acceptApmn")) {
+    	try {
+    		System.out.println("codeinaccepttry");
+			acceptApnm(request, response);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
+  }
+  private void acceptApnm(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException {
+      clearMessage();
+      System.out.println("codeinaccept");
+      // Assuming 'con_id' is coming from the request parameters
+      String conIdString = request.getParameter("conId");
+
+      if (conIdString != null) {
+          int conId = Integer.parseInt(conIdString);
+
+          // Create an instance of AvailabilityManagerImpl
+          AvailabilityManagerImpl manager = new AvailabilityManagerImpl();
+
+          try {
+              boolean result = manager.acceptApnm(conId); // Pass conId to the method
+
+              // Handle the result as needed
+              if (result) {
+                  request.setAttribute("feedbackMessage", "Consultant availability accepted successfully.");
+              } else {
+                  request.setAttribute("feedbackMessage", "Failed to accept consultant availability.");
+              }
+          } catch (ClassNotFoundException | SQLException e) {
+              // Handle exceptions appropriately
+              e.printStackTrace();
+              request.setAttribute("feedbackMessage", "An error occurred.");
+          }
+      } else {
+          request.setAttribute("feedbackMessage", "Invalid 'conId' parameter.");
+      }
+      request.setAttribute("feedbackMessage", message);
+
+      RequestDispatcher rd = request.getRequestDispatcher("jbs_view.jsp");
+      rd.forward(request, response);
   }
 
   private void addAvailability(HttpServletRequest request, HttpServletResponse response)
@@ -124,10 +194,19 @@ public class AvailabilityController extends HttpServlet {
     clearMessage();
 
 	Availability availability = new Availability();
+	
+	String dateString = request.getParameter("avb_date");
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date avbDate = (Date) dateFormat.parse(dateString);
+
+	String timeString = request.getParameter("avb_time");
+	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+	java.util.Date parsedTime = timeFormat.parse(timeString);
+	Time avbTime = new Time(parsedTime.getTime());
 
     availability.setConId(Integer.parseInt(request.getParameter("conId")));
-    availability.setAvbDate(request.getParameter("avbDate"));
-    availability.setAvbTime(request.getParameter("avbTime"));
+    availability.setAvbDate(avbDate);
+    availability.setAvbTime(avbTime);
     availability.setAvbCountry(request.getParameter("avbCountry"));
     availability.setAvbJob(request.getParameter("avbJob"));
 
@@ -148,16 +227,25 @@ public class AvailabilityController extends HttpServlet {
   }
 
   private void editAvailability(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException, ClassNotFoundException, SQLException {
+      throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException {
 
     clearMessage();
     
 	Availability availability = new Availability();
+	
+	String dateString = request.getParameter("avb_date");
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date avbDate = (Date) dateFormat.parse(dateString);
+
+	String timeString = request.getParameter("avb_time");
+	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+	java.util.Date parsedTime = timeFormat.parse(timeString);
+	Time avbTime = new Time(parsedTime.getTime());
 
     availability.setConId(Integer.parseInt(request.getParameter("con_id")));
     availability.setAvbId(Integer.parseInt(request.getParameter("avb_id")));
-    availability.setAvbDate(request.getParameter("avb_date"));
-    availability.setAvbTime(request.getParameter("avb_time"));
+    availability.setAvbDate(avbDate);
+    availability.setAvbTime(avbTime);
 
 
     if (getAvailabilityService().editAvailability(availability)) {
@@ -208,7 +296,7 @@ public class AvailabilityController extends HttpServlet {
 
     request.setAttribute("feedbackMessage", message);
 
-    RequestDispatcher rd = request.getRequestDispatcher("search-and-update.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("jbs_view.jsp");
     rd.forward(request, response);
   }
 
@@ -218,17 +306,20 @@ public class AvailabilityController extends HttpServlet {
     clearMessage();
 
     List<Availability> availabilityList = new ArrayList<Availability>();
+    System.out.println("fetchAllAvailability");
 
     availabilityList = getAvailabilityService().fetchAllAvailability();
 
       if (!(availabilityList.size() > 0)) {
+    	System.out.println("fetchAllAvailabilityNODATA");
         message = "No record(s) found!";
       }
 
     request.setAttribute("availabilityList", availabilityList);
     request.setAttribute("feedbackMessage", message);
 
-    RequestDispatcher rd = request.getRequestDispatcher("view-all-and-delete-each.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("jbs_view.jsp");
+    System.out.println("Hello");
     rd.forward(request, response);
   }
 

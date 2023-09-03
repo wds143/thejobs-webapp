@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="tag" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,14 +25,15 @@
             Login
           </div>
           <div class="card-body">
-            <form>
+          <p class="text-success">${feedbackMessage}</p>
+            <form action="jobseekerauthmanager" method="POST">
               <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username">
+                <input type="text" class="form-control" id="username" name="jbsUsername">
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <input type="password" class="form-control" id="password" name="jbsPassword">
               </div>
               <button type="submit" class="btn btn-primary">Login</button>
             </form>

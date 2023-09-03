@@ -41,7 +41,7 @@ public class AvailabilityService {
 		return getAvailabilityManager().fetchSingleAvailability();
 	}
 
-	public List<Availability> fetchAllAvailability() {
+	public List<Availability> fetchAllAvailability() throws ClassNotFoundException, SQLException {
 		return getAvailabilityManager().fetchAllAvailability();
 	}
 }
