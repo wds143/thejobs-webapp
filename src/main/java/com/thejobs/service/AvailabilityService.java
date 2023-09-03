@@ -1,6 +1,7 @@
 package com.thejobs.service;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import com.thejobs.dao.AvailabilityManager;
@@ -24,7 +25,7 @@ public class AvailabilityService {
         return new AvailabilityManagerImpl();
     }
 
-    public boolean addAvailability(Availability availability) throws SQLException, ClassNotFoundException {
+    public boolean addAvailability(Availability availability) throws SQLException, ClassNotFoundException, ParseException {
         return getAvailabilityManager().addAvailability(availability);
     }
 

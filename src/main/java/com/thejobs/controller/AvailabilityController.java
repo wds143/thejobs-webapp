@@ -2,6 +2,7 @@ package com.thejobs.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,9 +68,21 @@ public class AvailabilityController extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String actionType = request.getParameter("actiontype");
-
+    System.out.println("doPost");
     if (actionType.equals("add")) {
-      addAvailability(request, response);
+    	System.out.println("add");
+      try {
+		addAvailability(request, response);
+	} catch (ServletException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     } else if (actionType.equals("edit")) {
       try {
 		editAvailability(request, response);
@@ -106,20 +119,17 @@ public class AvailabilityController extends HttpServlet {
   }
 
   private void addAvailability(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+      throws ServletException, IOException, ParseException {
 
     clearMessage();
 
-	int conId = 0;
-	int avbId = 0;
-	String avbDate = null;
-	String avbTime = null;
-	Availability availability = new Availability( conId, avbId, avbDate, avbTime);
+	Availability availability = new Availability();
 
-    availability.setConId(Integer.parseInt(request.getParameter("con_id")));
-    availability.setAvbId(Integer.parseInt(request.getParameter("avb_id")));
-    availability.setAvbDate(request.getParameter("avb_date"));
-    availability.setAvbTime(request.getParameter("avb_time"));
+    availability.setConId(Integer.parseInt(request.getParameter("conId")));
+    availability.setAvbDate(request.getParameter("avbDate"));
+    availability.setAvbTime(request.getParameter("avbTime"));
+    availability.setAvbCountry(request.getParameter("avbCountry"));
+    availability.setAvbJob(request.getParameter("avbJob"));
 
     try {
       if (getAvailabilityService().addAvailability(availability)) {
@@ -133,7 +143,7 @@ public class AvailabilityController extends HttpServlet {
 
     request.setAttribute("feedbackMessage", message);
 
-    RequestDispatcher rd = request.getRequestDispatcher("add-product.jsp");
+    RequestDispatcher rd = request.getRequestDispatcher("create_avb.jsp");
     rd.forward(request, response);
   }
 
@@ -141,12 +151,8 @@ public class AvailabilityController extends HttpServlet {
       throws ServletException, IOException, ClassNotFoundException, SQLException {
 
     clearMessage();
-
-	int conId = 0;
-	int avbId = 0;
-	String avbDate = null;
-	String avbTime = null;
-	Availability availability = new Availability( conId, avbId, avbDate, avbTime);
+    
+	Availability availability = new Availability();
 
     availability.setConId(Integer.parseInt(request.getParameter("con_id")));
     availability.setAvbId(Integer.parseInt(request.getParameter("avb_id")));

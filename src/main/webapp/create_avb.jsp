@@ -11,11 +11,20 @@
 </head>
 <body>
   <div class="container mt-5">
-    <h2>Consultant Name</h2>
+   	<p class="text-success">${feedbackMessage}</p>
     <form method="post" action="availabilitymanager">
       <div class="form-group">
+      <% String username = (String) request.getAttribute("username"); %>
+        <label for="country">Consultant ID</label>
+        <select class="form-control" id="country" name="conId">
+          <option value="">Select a Consultant ID</option>
+          <option value="<%= username %>"><%= username %></option>
+          <option value="4">4</option>
+        </select>
+      </div>
+      <div class="form-group">
         <label for="country">Country</label>
-        <select class="form-control" id="country" name="avb_country">
+        <select class="form-control" id="country" name="avbCountry">
           <option value="">Select a Country</option>
           <option value="usa">USA</option>
           <option value="canada">Canada</option>
@@ -25,7 +34,7 @@
       </div>
       <div class="form-group">
         <label for="job">Job</label>
-        <select class="form-control" id="job" name="avb_job">
+        <select class="form-control" id="job" name="avbJob">
           <option value="">Select a Job</option>
           <option value="web_developer">Web Developer</option>
           <option value="graphic_designer">Graphic Designer</option>
@@ -35,13 +44,13 @@
       </div>
       <div class="form-group">
         <label for="date">Date of Availability</label>
-        <input type="date" class="form-control" id="date" name="avb_date">
+        <input type="date" class="form-control" id="date" name="avbDate">
       </div>
       <div class="form-group">
         <label for="time">Time of Availability</label>
-        <input type="text" class="form-control" id="time" name="avb_time">
+        <input type="text" class="form-control" id="time" name="avbTime">
       </div>
-      <input type="hidden" name="applytype" value="add">
+      <input type="hidden" name="actiontype" value="add">
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>

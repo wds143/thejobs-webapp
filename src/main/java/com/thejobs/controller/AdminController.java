@@ -22,7 +22,6 @@ public class AdminController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String actionType = request.getParameter("actiontype");
         System.out.println("POST request received in servlet");
 
         // Check if the user is authenticated as an admin (using a boolean flag)
@@ -31,7 +30,7 @@ public class AdminController extends HttpServlet {
 
         if (isAuthenticatedAdmin != null && isAuthenticatedAdmin) {
             // Admin is already authenticated, no need to re-authenticate.
-            forwardToCreateConPage(request, response);
+            forwardToCreateConPage(request, response, isAuthenticatedAdmin);
         } else {
             // Admin is not authenticated; perform authentication logic.
             String username = request.getParameter("username");
@@ -47,7 +46,7 @@ public class AdminController extends HttpServlet {
             if (isAuthenticatedAdmin) {
                 // Admin is authenticated, set the flag in the session
                 session.setAttribute("isAuthenticatedAdmin", true);
-                forwardToCreateConPage(request, response);
+                forwardToCreateConPage(request, response, isAuthenticatedAdmin);
             } else {
                 // Authentication failed, show an error message
                 String message = "Authentication failed. Invalid username or password.";
@@ -55,6 +54,7 @@ public class AdminController extends HttpServlet {
                 forwardToLoginPage(request, response);
             }
         }
+        
     }
 
     private void forwardToLoginPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -62,8 +62,13 @@ public class AdminController extends HttpServlet {
         rd.forward(request, response);
     }
 
-    private void forwardToCreateConPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void forwardToCreateConPage(HttpServletRequest request, HttpServletResponse response, boolean isAuthenticated) throws ServletException, IOException {
+        // Set the "isAuthenticated" attribute in the request
+        request.setAttribute("isAuthenticated", isAuthenticated);
+
+        // Forward to the "create_con.jsp" page
         RequestDispatcher rd = request.getRequestDispatcher("create_con.jsp");
         rd.forward(request, response);
     }
+
 }

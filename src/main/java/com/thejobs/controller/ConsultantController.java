@@ -27,7 +27,6 @@ public class ConsultantController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String actiontype = request.getParameter("actiontype");
-
     if (actiontype.equals("fetchSingle")) {
       try {
         fetchSingleConsultant(request, response);
@@ -43,7 +42,10 @@ public class ConsultantController extends HttpServlet {
     } else {
       fetchAllConsultants(request, response);
     }
+    System.out.println("POST request received in servlet");
+    
   }
+  
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -190,5 +190,5 @@ public class ConsultantManagerImpl implements ConsultantManager {
 
 	    return consultant;
 	}
-
+	
 }

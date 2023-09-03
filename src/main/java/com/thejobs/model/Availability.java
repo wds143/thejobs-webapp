@@ -5,12 +5,19 @@ public class Availability {
 	private int conId;
 	private String avbDate;
 	private String avbTime;
+	private String avbCountry;
+	private String avbJob;
 	
-	public Availability(int avbId, int conId, String avbDate, String avbTime) {
+	public Availability() {
+			
+	}
+	public Availability(int avbId, int conId, String avbDate, String avbTime, String avbCountry, String avbJob) {
 		this.avbId = avbId;
 		this.conId = conId;
 		this.avbDate = avbDate;
 		this.avbTime = avbTime;
+		this.avbCountry = avbCountry;
+		this.avbJob = avbJob;
 	}
 	
 	public int getAvbId() {
@@ -37,6 +44,16 @@ public class Availability {
 	public void setAvbTime(String avbTime) {
 		this.avbTime = avbTime;
 	}
-	
-	
+	public String getAvbCountry() {
+		return avbCountry;
+	}
+	public void setAvbCountry(String avbCountry) {
+		this.avbCountry = avbCountry;
+	}
+	public String getAvbJob() {
+		return avbJob;
+	}
+	public void setAvbJob(String avbJob) {
+		this.avbJob = avbJob;
+	}
 }

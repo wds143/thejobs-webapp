@@ -34,6 +34,12 @@
   	<description></description>
   	<servlet-class>com.thejobs.controller.AdminController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ConsultantAuthController</servlet-name>
+  	<display-name>ConsultantAuthController</display-name>
+  	<description></description>
+  	<servlet-class>com.thejobs.controller.ConsultantAuthController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>AppointmentController</servlet-name>
   	<url-pattern>/appointmentmanager</url-pattern>
@@ -73,5 +79,13 @@
   <servlet-mapping>
   	<servlet-name>AdminController</servlet-name>
   	<url-pattern>/getadmin</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ConsultantAuthController</servlet-name>
+  	<url-pattern>/consultantauthmanager</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ConsultantAuthController</servlet-name>
+  	<url-pattern>/getconsultantauth</url-pattern>
   </servlet-mapping>
 </web-app>
