@@ -23,11 +23,9 @@ public class ConsultantAuthService {
     }
 
     public boolean authenticateConsultant(String username, String password) throws SQLException, ClassNotFoundException {
-        // You can implement the authentication logic here using the ConsultantManager
-    	ConsultantAuthManager consultantAuthManager = getConsultantAuthManager(); // Assuming you have a ConsultantManager class.
+    	ConsultantAuthManager consultantAuthManager = getConsultantAuthManager();
 
-        // Example: Authenticate based on username and password
-        boolean authenticatedConsultant = consultantAuthManager.authenticateConsultant(username, password); // Assuming authenticateConsultant method exists in ConsultantManager.
+        boolean authenticatedConsultant = consultantAuthManager.authenticateConsultant(username, password);
 
         return authenticatedConsultant;
     }

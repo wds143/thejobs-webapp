@@ -191,7 +191,6 @@ public class ConsultantController extends HttpServlet {
     rd.forward(request, response);
   }
 
-  // UTILITY
   public void clearMessage() {
     message = "";
   }

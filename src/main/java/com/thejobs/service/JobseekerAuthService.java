@@ -23,11 +23,9 @@ public class JobseekerAuthService {
     }
 
     public boolean authenticateJobseeker(String username, String password) throws SQLException, ClassNotFoundException {
-        // You can implement the authentication logic here using the JobSeekerAuthManager
-        JobseekerAuthManager jobseekerAuthManager = getJobseekerAuthManager(); // Assuming you have a JobSeekerAuthManager class.
+        JobseekerAuthManager jobseekerAuthManager = getJobseekerAuthManager();
 
-        // Example: Authenticate based on username and password
-        boolean authenticatedJobseeker = jobseekerAuthManager.authenticateJobseeker(username, password); // Assuming authenticateJobSeeker method exists in JobSeekerAuthManager.
+        boolean authenticatedJobseeker = jobseekerAuthManager.authenticateJobseeker(username, password);
 
         return authenticatedJobseeker;
     }

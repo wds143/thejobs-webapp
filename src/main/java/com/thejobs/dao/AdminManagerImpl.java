@@ -27,7 +27,6 @@ public class AdminManagerImpl implements AdminManager {
     try {
       connection = getConnection();
 
-      // Define your authentication query here (replace 'admin' with your admin table name).
       String query = "SELECT * FROM admin WHERE admin_username = ? AND admin_password = ?";
       preparedStatement = connection.prepareStatement(query);
       preparedStatement.setString(1, username);
@@ -36,10 +35,8 @@ public class AdminManagerImpl implements AdminManager {
 
       resultSet = preparedStatement.executeQuery();
 
-      // If a row is returned, authentication is successful.
       return resultSet.next();
     } finally {
-      // Close resources in a finally block to ensure they are always closed.
       if (resultSet != null) {
         resultSet.close();
       }

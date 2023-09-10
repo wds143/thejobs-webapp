@@ -156,26 +156,22 @@ public class AvailabilityController extends HttpServlet {
   private void acceptApnm(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException {
       clearMessage();
       System.out.println("codeinaccept");
-      // Assuming 'con_id' is coming from the request parameters
       String conIdString = request.getParameter("conId");
 
       if (conIdString != null) {
           int conId = Integer.parseInt(conIdString);
 
-          // Create an instance of AvailabilityManagerImpl
           AvailabilityManagerImpl manager = new AvailabilityManagerImpl();
 
           try {
-              boolean result = manager.acceptApnm(conId); // Pass conId to the method
+              boolean result = manager.acceptApnm(conId);
 
-              // Handle the result as needed
               if (result) {
                   request.setAttribute("feedbackMessage", "Consultant availability accepted successfully.");
               } else {
                   request.setAttribute("feedbackMessage", "Failed to accept consultant availability.");
               }
           } catch (ClassNotFoundException | SQLException e) {
-              // Handle exceptions appropriately
               e.printStackTrace();
               request.setAttribute("feedbackMessage", "An error occurred.");
           }
@@ -266,12 +262,12 @@ public class AvailabilityController extends HttpServlet {
 
     clearMessage();
 
-    int apnmId = Integer.parseInt(request.getParameter("apnm_id"));
+    int avbId = Integer.parseInt(request.getParameter("avb_id"));
 
-    if (getAvailabilityService().deleteAvailability(apnmId)) {
-        message = "Availability #: <code>" + apnmId + "</code> was successfully removed!";
+    if (getAvailabilityService().deleteAvailability(avbId)) {
+        message = "Availability #: <code>" + avbId + "</code> was successfully removed!";
       } else {
-        message = "Failed to delete product!" + apnmId;
+        message = "Failed to delete Availability!" + avbId;
       }
 
     HttpSession session = request.getSession();
@@ -323,7 +319,6 @@ public class AvailabilityController extends HttpServlet {
     rd.forward(request, response);
   }
 
-  // UTILITY
   public void clearMessage() {
     message = "";
   }

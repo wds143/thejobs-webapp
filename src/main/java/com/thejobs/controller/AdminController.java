@@ -24,31 +24,25 @@ public class AdminController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("POST request received in servlet");
 
-        // Check if the user is authenticated as an admin (using a boolean flag)
         HttpSession session = request.getSession();
         Boolean isAuthenticatedAdmin = (Boolean) session.getAttribute("isAuthenticatedAdmin");
 
         if (isAuthenticatedAdmin != null && isAuthenticatedAdmin) {
-            // Admin is already authenticated, no need to re-authenticate.
             forwardToCreateConPage(request, response, isAuthenticatedAdmin);
         } else {
-            // Admin is not authenticated; perform authentication logic.
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
             try {
                 isAuthenticatedAdmin = getAdminService().authenticateAdmin(username, password);
             } catch (ClassNotFoundException | SQLException e) {
-                // Handle exceptions appropriately
                 e.printStackTrace();
             }
 
             if (isAuthenticatedAdmin) {
-                // Admin is authenticated, set the flag in the session
                 session.setAttribute("isAuthenticatedAdmin", true);
                 forwardToCreateConPage(request, response, isAuthenticatedAdmin);
             } else {
-                // Authentication failed, show an error message
                 String message = "Authentication failed. Invalid username or password.";
                 request.setAttribute("feedbackMessage", message);
                 forwardToLoginPage(request, response);
@@ -63,10 +57,8 @@ public class AdminController extends HttpServlet {
     }
 
     private void forwardToCreateConPage(HttpServletRequest request, HttpServletResponse response, boolean isAuthenticated) throws ServletException, IOException {
-        // Set the "isAuthenticated" attribute in the request
         request.setAttribute("isAuthenticated", isAuthenticated);
 
-        // Forward to the "create_con.jsp" page
         RequestDispatcher rd = request.getRequestDispatcher("create_con.jsp");
         rd.forward(request, response);
     }

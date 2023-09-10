@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirect Buttons</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
   <style>
     body {
       background-color: #f8f9fa;
@@ -31,7 +31,8 @@
       <div class="col-md-12">
         <div class="button-container">
           <div class="button-column">
-            <a href="jbs_login.jsp" class="btn btn-primary button">JobSeeker</a>
+            <a href="register.jsp" class="btn btn-primary button">JobSeeker Registration</a>
+            <a href="jbs_login.jsp" class="btn btn-primary button">JobSeeker Login</a>
             <a href="con_login.jsp" class="btn btn-secondary button">Consultant</a>
             <a href="admin.jsp" class="btn btn-success button">Admin</a>
           </div>

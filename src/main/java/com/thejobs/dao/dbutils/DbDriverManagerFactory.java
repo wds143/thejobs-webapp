@@ -5,7 +5,6 @@ public class DbDriverManagerFactory {
 	    if (databaseType.equals("MySQL")) {
 	      return new DbDriverManagerMySQLImpl();
 	    } else {
-	      // replace with another databaseType like MS SQL or any other if exist
 	      return null;
 	    }
 	  }

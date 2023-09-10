@@ -146,7 +146,7 @@ public class AppointmentController extends HttpServlet {
       if (getAppointmentService().deleteAppointment(apnmId)) {
         message = "Appointment #: <code>" + apnmId + "</code> was successfully removed!";
       } else {
-        message = "Failed to delete product!" + apnmId;
+        message = "Failed to delete Appointment!" + apnmId;
       }
     } catch (ClassNotFoundException | SQLException e) {
       message = e.getMessage();
@@ -208,7 +208,6 @@ public class AppointmentController extends HttpServlet {
 	  }
   
 
-  // UTILITY
   public void clearMessage() {
     message = "";
   }

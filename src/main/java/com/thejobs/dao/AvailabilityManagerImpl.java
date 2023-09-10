@@ -119,9 +119,8 @@ public class AvailabilityManagerImpl implements AvailabilityManager {
 
                 Date date = new Date(timestamp.getTime());
 
-                // Extract the date and time components
-                java.sql.Date sqlDate = new java.sql.Date(date.getTime()); // Date
-                java.sql.Time sqlTime = new java.sql.Time(date.getTime()); // Time
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                java.sql.Time sqlTime = new java.sql.Time(date.getTime());
 
 	        	        	
 	            int conId = resultSet.getInt("con_id");
@@ -142,7 +141,6 @@ public class AvailabilityManagerImpl implements AvailabilityManager {
 	            availabilityList.add(availability);
 	        }
 	    } catch (ClassNotFoundException | SQLException e) {
-	        // Handle exceptions appropriately
 	        e.printStackTrace();
 	    } finally {
 	        try {
@@ -156,7 +154,6 @@ public class AvailabilityManagerImpl implements AvailabilityManager {
 	                connection.close();
 	            }
 	        } catch (SQLException e) {
-	            // Handle exceptions appropriately
 	            e.printStackTrace();
 	        }
 	    }

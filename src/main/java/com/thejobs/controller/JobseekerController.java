@@ -143,7 +143,7 @@ public class JobseekerController extends HttpServlet {
       if (getJobseekerService().deleteJobseeker(jbsId)) {
         message = "Jobseeker #: <code>" + jbsId + "</code> was successfully removed!";
       } else {
-        message = "Failed to delete product!" + jbsId;
+        message = "Failed to delete Jobseeker!" + jbsId;
       }
     } catch (ClassNotFoundException | SQLException e) {
       message = e.getMessage();
@@ -199,7 +199,6 @@ public class JobseekerController extends HttpServlet {
     rd.forward(request, response);
   }
 
-  // UTILITY
   public void clearMessage() {
     message = "";
   }

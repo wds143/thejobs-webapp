@@ -163,7 +163,7 @@ public class ConsultantManagerImpl implements ConsultantManager {
 
 	@Override
 	public Consultant fetchSingleConsultant(int consultantId) throws SQLException, ClassNotFoundException {
-	    Connection connection = getConnection(); // Assuming you have a method to get a database connection.
+	    Connection connection = getConnection();
 
 	    String query = "SELECT * FROM consultant WHERE consultant_id=?";
 

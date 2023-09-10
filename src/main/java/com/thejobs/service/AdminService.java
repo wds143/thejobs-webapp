@@ -23,12 +23,9 @@ public class AdminService {
     return new AdminManagerImpl();
   }
 
-  // Add an authentication method
   public boolean authenticateAdmin(String username, String password) throws SQLException, ClassNotFoundException {
-    // You can implement the authentication logic here using the AdminManager
     AdminManager adminManager = getAdminManager();
     
-    // Example: Authenticate based on username and password
     boolean authenticatedAdmin = adminManager.authenticateAdmin(username, password);
     
     return authenticatedAdmin;
